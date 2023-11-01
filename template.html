@@ -1,0 +1,140 @@
+<html>
+  <head>
+    <title>Add Map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /*
+        * Always set the map height explicitly to define the size of the div element
+        * that contains the map.
+        */
+        #map {
+            height: 100%;
+        }
+
+        /*
+        * Optional: Makes the sample page fill the window.
+        */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            overflow-y: hidden;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex; 
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-item {
+            margin: 0;
+            padding-top: 20;
+            width: 20%;
+            text-align: center;
+        }
+
+        .nav-item > span {
+            display: block;
+            text-align: center;
+        }
+
+        .nav-item > i {
+            padding-bottom: 20;
+        } 
+
+    </style>
+  </head>
+  <body>
+    <header style="height: 5vh">
+        <h3>My Google Maps Demo</h3>
+    </header>
+    <main style="height: 80vh">
+        <div id="map"></div>
+    </main>
+    <footer style="height: 10vh">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <i class="fa-solid fa-tag fa-2xl"></i>
+                <span>Daily Discounts</span>
+            </li>
+            <li class="nav-item">
+                <i class="fa-solid fa-kitchen-set fa-2xl"></i>
+                <span>Cuisines</span>
+            </li>
+            <li class="nav-item">
+                <img src="./img/Olympic_rings_without_rims.svg.png" width="60" alt="">
+                <span>Home</span>
+            </li>
+            <li class="nav-item">
+                <i class="fa-solid fa-map fa-2xl"></i>
+                <span>Maps</span>
+            </li>
+            <li class="nav-item">
+                <i class="fa-solid fa-gift fa-2xl"></i>
+                <span>My Rewards</span>
+            </li>
+        </ul>
+    </footer>
+    
+    
+
+    <!-- prettier-ignore -->
+    <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+        ({key: "AIzaSyCoCLNcn4zkM7eU0sJn7UZ1dqMPBKbWvFo", v: "beta"});</script>
+
+    <!-- include FA -->
+    <script src="https://kit.fontawesome.com/f5ef9a8d4d.js" crossorigin="anonymous"></script>
+  </body>
+  <script>
+    // Initialize and add the map
+    let map;
+
+    async function initMap() {
+        // The location of Uluru
+        const position = { lat: 48.8566, lng: 2.3522 };
+        // Request needed libraries.
+        //@ts-ignore
+        const { Map } = await google.maps.importLibrary("maps");
+        const { AdvancedMarkerView } = await google.maps.importLibrary("marker");
+
+        const styles = [
+            {
+                featureType: "poi",
+                elementType: "labels",
+                stylers: [
+                    { visibility: "off" }
+                ]
+            }
+        ];
+
+        // The map, centered at Uluru
+        map = new Map(document.getElementById("map"), {
+            zoom: 15,
+            center: position,
+            mapId: "d757f22cd9a786a"
+        });
+
+        // The marker, positioned at Uluru
+        const marker = new AdvancedMarkerView({
+            map: map,
+            position: position,
+            title: "Paris",
+        });
+
+        marker.addListener("click", () => {
+            alert("You clicked on the marker!");
+        });
+    }
+
+    initMap();
+  </script>
+</html>
